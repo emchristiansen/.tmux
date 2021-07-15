@@ -14,6 +14,9 @@
 # then uncomment the following line to make Meta + arrow keys mapping work
 #set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
 
+# CUSTOM
+set -g @plugin 'tmux-plugins/tmux-cpu'
+
 
 # -- windows & pane creation ---------------------------------------------------
 
@@ -226,8 +229,13 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
+
+# CUSTOM
+# tmux_conf_theme_status_left='#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %Y-%m-%d:%H:%M '
+tmux_conf_theme_status_left=" ❐ #S |  #{loadavg}"
+# tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
+tmux_conf_theme_status_right=" %Y-%m-%d:%H:%M:%S | #{username}#{root} | #{hostname} "
+# tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -327,10 +335,10 @@ tmux_conf_copy_to_os_clipboard=false
 # this is the place to override or undo settings
 
 # increase history size
-#set -g history-limit 10000
+set -g history-limit 10000
 
 # start with mouse mode enabled
-#set -g mouse on
+set -g mouse off
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -339,13 +347,13 @@ tmux_conf_copy_to_os_clipboard=false
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
-# unbind C-a
+unbind C-a
 # unbind C-b
 # set -g prefix C-a
 # bind C-a send-prefix
 
 # move status line to top
-#set -g status-position top
+set -g status-position top
 
 # -- tpm -----------------------------------------------------------------------
 
@@ -366,6 +374,11 @@ tmux_conf_update_plugins_on_launch=true
 #   - false
 tmux_conf_update_plugins_on_reload=true
 
+set -g status-justify centre
+# # enable vi keys.
+# setw -g mode-keys vi
+# bind Escape copy-mode
+
 # /!\ do not add set -g @plugin 'tmux-plugins/tpm'
 # /!\ do not add run '~/.tmux/plugins/tpm/tpm'
 
@@ -376,7 +389,11 @@ tmux_conf_update_plugins_on_reload=true
 #set -g @plugin 'tmux-plugins/tmux-resurrect'
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @continuum-restore 'on'
-
+set -g @plugin 'jabirali/tmux-tilish'
+set -g @tilish-default 'main-vertical'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+# set -g @tilish-default 'main-vertical'
+# set -g @tilish-prefix 'M-space'
 
 # -- custom variables ----------------------------------------------------------
 
